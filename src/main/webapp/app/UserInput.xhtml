@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <f:viewParam name="id" value="#{userInputController.inputActivity}"/>
+    </f:metadata>
+    <h:head>
+        <title><ui:insert name="title">#{userInputController.activity.name}</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+    <h:body>
+        <f:event type="preRenderView" listener="#{userInputController.loadData}"/> 
+        <h:form id="ActivityExecuteForm">
+            <p:panel header="Esecuzione Lavoro Remoto" >
+                <h:panelGroup id="display" >
+                    <h:panelGrid columns="2">
+                        <img src="../resources/images/job.png" width="20px" alt=""/>
+
+                    <h:outputText value=":: Attività #{userInputController.activity.id} - #{userInputController.activity.description}" 
+                                  style="font-size: 16px;color: dodgerblue;font-weight: bold"/>
+                    
+                    </h:panelGrid>
+                    <p:separator/>
+                    <table>
+                    
+                            
+                     
+                        <ui:repeat value="#{userInputController.params}" var="p" varStatus="status">
+                            <tr>
+                                <td>#{p.description} </td>
+                                <td>
+                                    <p:inputText value="#{p.value}" rendered="#{p.type =='STRING'}"/>
+                                    <p:calendar value="#{p.value}" pattern="dd/MM/yyyy"  rendered="#{p.type =='DATE'}">
+                                        <f:converter converterId="com.ironsg.ironj.controller.ParamsControllerConverter"/>
+                                    </p:calendar>
+                                </td>
+                                <td>[nome del parametro: #{p.paramsPK.name}] </td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                    <p:separator/>
+                    <p:commandButton value="Esegui" actionListener="#{userInputController.process}" ajax="true"/>
+                    
+                </h:panelGroup>
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            </p:panel>
+
+            <p:dialog widgetVar="statusDialog"  modal="true" 
+                      draggable="false" closable="true" resizable="false" 
+                      showHeader="false" showEffect="puff" hideEffect="explode">
+               
+                <p:panelGrid columns="1"  style="border: hidden;width: 400px">
+                  
+
+                    <h:outputText value="Il comando è stato inviato al server per l'esecuzione, 
+                                  questa finestra si chiuderà al termine del lavoro."
+                                  style="color: cornflowerblue;font-size: 14px;font-weight: bold"/>
+
+                      <img src="../resources/images/gears-2.gif" alt=""/>
+                </p:panelGrid>
+            </p:dialog>
+        </h:form>
+
+
+
+    </h:body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParamsViewDlg" widgetVar="ParamsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{params.ViewParamsTitle}">
+            <h:form id="ParamsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paramsController.selected != null}">
+                        <h:outputText value="#{params.ViewParamsLabel_paramsPK_name}"/>
+                        <h:outputText value="#{paramsController.selected.paramsPK.name}" title="#{params.ViewParamsTitle_paramsPK_name}"/>
+                        <h:outputText value="#{params.ViewParamsLabel_paramsPK_activityId}"/>
+                        <h:outputText value="#{paramsController.selected.paramsPK.activityId}" title="#{params.ViewParamsTitle_paramsPK_activityId}"/>
+                        <h:outputText value="#{params.ViewParamsLabel_description}"/>
+                        <h:outputText value="#{paramsController.selected.description}" title="#{params.ViewParamsTitle_description}"/>
+                        <h:outputText value="#{params.ViewParamsLabel_type}"/>
+                        <h:outputText value="#{paramsController.selected.type}" title="#{params.ViewParamsTitle_type}"/>
+                        <h:outputText value="#{params.ViewParamsLabel_value}"/>
+                        <h:outputText value="#{paramsController.selected.value}" title="#{params.ViewParamsTitle_value}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{params.Close}" onclick="ParamsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

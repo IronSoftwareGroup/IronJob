@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActivityEditDlg" widgetVar="ActivityEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{activity.EditActivityTitle}">
+            <h:form id="ActivityEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{activityController.selected != null}">
+                        <p:outputLabel value="#{activity.EditActivityLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{activityController.selected.id}" title="#{activity.EditActivityTitle_id}" required="true" requiredMessage="#{activity.EditActivityRequiredMessage_id}"/>
+                        <p:outputLabel value="#{activity.EditActivityLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{activityController.selected.name}" title="#{activity.EditActivityTitle_name}" required="true" requiredMessage="#{activity.EditActivityRequiredMessage_name}"/>
+                        <p:outputLabel value="#{activity.EditActivityLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{activityController.selected.description}" title="#{activity.EditActivityTitle_description}" style="width: 480px"/>
+                        <p:outputLabel value="#{activity.EditActivityLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{activityController.selected.type}" title="#{activity.EditActivityTitle_type}" />
+                        <p:outputLabel value="#{activity.EditActivityLabel_path}" for="path" />
+                        <p:inputText id="path" value="#{activityController.selected.path}" title="#{activity.EditActivityTitle_path}" style="width: 480px"/>
+                        <p:outputLabel value="#{activity.EditActivityLabel_log}" for="log" />
+                        <p:inputText id="log" value="#{activityController.selected.log}" title="#{activity.EditActivityTitle_log}" style="width: 480px"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{activityController.update}" value="#{activity.Save}" update="display,:ActivityListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ActivityEditDialog');"/>
+                    <p:commandButton value="#{activity.Cancel}" onclick="ActivityEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

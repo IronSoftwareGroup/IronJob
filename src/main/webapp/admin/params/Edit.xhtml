@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParamsEditDlg" widgetVar="ParamsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{params.EditParamsTitle}">
+            <h:form id="ParamsEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paramsController.selected != null}">
+                         <p:outputLabel value="#{params.EditParamsLabel_paramsPK_activityId}" for="paramsPK_activityId" />
+                         <p:inputText id="paramsPK_activityId" value="#{paramsController.selected.paramsPK.activityId}" title="#{params.EditParamsTitle_paramsPK_activityId}" required="true" readonly="true"/>            
+                        <p:outputLabel value="#{params.EditParamsLabel_paramsPK_name}" for="paramsPK_name" />
+                        <p:inputText id="paramsPK_name" value="#{paramsController.selected.paramsPK.name}" title="#{params.EditParamsTitle_paramsPK_name}" required="true" readonly="true"/>
+                       <p:outputLabel value="#{params.EditParamsLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{paramsController.selected.description}" title="#{params.EditParamsTitle_description}" />
+                        <p:outputLabel value="#{params.EditParamsLabel_type}" for="type" />
+                        <p:selectOneMenu  id="type" value="#{paramsController.selected.type}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItem itemLabel="String"  itemValue="STRING" /> 
+                            <f:selectItem itemLabel="Date"  itemValue="DATE" />            
+                        </p:selectOneMenu><p:outputLabel value="#{params.EditParamsLabel_value}" for="value" />
+                        <p:inputText id="value" value="#{paramsController.selected.value}" title="#{params.EditParamsTitle_value}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paramsController.update}" value="#{params.Save}" update="display,:ParamsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ParamsEditDialog');"/>
+                    <p:commandButton value="#{params.Cancel}" onclick="ParamsEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

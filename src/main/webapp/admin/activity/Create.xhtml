@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActivityCreateDlg" widgetVar="ActivityCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{activity.CreateActivityTitle}">
+            <h:form id="ActivityCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{activityController.selected != null}">
+               
+                       
+                        <p:outputLabel value="#{activity.CreateActivityLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{activityController.selected.name}" title="#{activity.CreateActivityTitle_name}" required="true" requiredMessage="#{activity.CreateActivityRequiredMessage_name}"/>
+                        
+                        <p:outputLabel value="#{activity.CreateActivityLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{activityController.selected.description}" title="#{activity.CreateActivityTitle_description}" style="width: 480px"/>
+                        
+                        <p:outputLabel value="#{activity.CreateActivityLabel_type}" for="type" />
+                        <p:selectOneMenu  id="type" value="#{activityController.selected.type}">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItem itemLabel="Kettle Transformation"  itemValue="KTL_TR" /> 
+                            <f:selectItem itemLabel="Kettle Job"  itemValue="KTL_JOB" /> 
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{activity.CreateActivityLabel_path}" for="path" />
+                        <p:inputText id="path" value="#{activityController.selected.path}" title="#{activity.CreateActivityTitle_path}" style="width: 480px" />
+                        
+                        <p:outputLabel value="#{activity.CreateActivityLabel_log}" for="log" />
+                        <p:inputText id="log" value="#{activityController.selected.log}" title="#{activity.CreateActivityTitle_log}" style="width: 480px"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{activityController.create}" value="#{activity.Save}" update="display,:ActivityListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActivityCreateDialog');"/>
+                    <p:commandButton value="#{activity.Cancel}" onclick="ActivityCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

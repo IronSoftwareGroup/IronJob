@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParamsCreateDlg" widgetVar="ParamsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{params.CreateParamsTitle}">
+            <h:form id="ParamsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paramsController.selected != null}">
+                        <p:outputLabel value="#{params.CreateParamsLabel_paramsPK_activityId}" for="paramsPK_activityId" />
+                        <p:inputText id="paramsPK_activityId" value="#{paramsController.selected.paramsPK.activityId}" title="#{params.CreateParamsTitle_paramsPK_activityId}" readonly="true"/>
+
+                        <p:outputLabel value="#{params.CreateParamsLabel_paramsPK_name}" for="paramsPK_name" />
+                        <p:inputText id="paramsPK_name" value="#{paramsController.selected.paramsPK.name}" title="#{params.CreateParamsTitle_paramsPK_name}" required="true" requiredMessage="#{params.CreateParamsRequiredMessage_paramsPK_name}"/>
+
+                        <p:outputLabel value="#{params.CreateParamsLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{paramsController.selected.description}" title="#{params.CreateParamsTitle_description}" />
+
+                        <p:outputLabel value="#{params.CreateParamsLabel_type}" for="type" />
+                        <p:selectOneMenu  id="type" value="#{paramsController.selected.type}">
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItem itemLabel="String"  itemValue="STRING" /> 
+                            <f:selectItem itemLabel="Date"  itemValue="DATE" />            
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{params.CreateParamsLabel_value}" for="value" />
+                        <p:inputText id="value" value="#{paramsController.selected.value}" title="#{params.CreateParamsTitle_value}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paramsController.create}" value="#{params.Save}" update="display,:ParamsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ParamsCreateDialog');"/>
+                    <p:commandButton value="#{params.Cancel}" onclick="ParamsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

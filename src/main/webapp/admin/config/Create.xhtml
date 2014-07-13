@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConfigCreateDlg" widgetVar="ConfigCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{config.CreateConfigTitle}">
+            <h:form id="ConfigCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{configController.selected != null}">
+                        <p:outputLabel value="#{config.CreateConfigLabel_propertyKey}" for="propertyKey" />
+                        <p:inputText id="propertyKey" value="#{configController.selected.propertyKey}" title="#{config.CreateConfigTitle_propertyKey}" required="true" requiredMessage="#{config.CreateConfigRequiredMessage_propertyKey}"/>
+                        <p:outputLabel value="#{config.CreateConfigLabel_propertyValue}" for="propertyValue" />
+                        <p:inputText id="propertyValue" value="#{configController.selected.propertyValue}" title="#{config.CreateConfigTitle_propertyValue}" required="true" requiredMessage="#{config.CreateConfigRequiredMessage_propertyValue}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{configController.create}" value="#{config.Save}" update="display,:ConfigListForm:datalist,:growl" oncomplete="handleSubmit(args,'ConfigCreateDialog');"/>
+                    <p:commandButton value="#{config.Cancel}" onclick="ConfigCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

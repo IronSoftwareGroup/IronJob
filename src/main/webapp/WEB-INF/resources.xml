@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="ironj" type="javax.sql.DataSource">#Sun Jul 06 16:38:22 CEST 2014
+jdbcDriver=com.mysql.jdbc.Driver
+password=
+userName=root
+jdbcUrl=jdbc\:mysql\://localhost\:3306/ironj?zeroDateTimeBehavior\=convertToNull
+</Resource>
+</resources>
