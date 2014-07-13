@@ -15,7 +15,7 @@
     </servlet>
     <servlet>
         <servlet-name>User Input</servlet-name>
-        <servlet-class>com.ironsg.ironj.controller.UserInputController</servlet-class>
+        <servlet-class>com.gn.ironj.controller.UserInputController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

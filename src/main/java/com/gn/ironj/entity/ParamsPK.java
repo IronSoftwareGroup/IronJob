@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.ironsg.ironj.entity;
+package com.gn.ironj.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;

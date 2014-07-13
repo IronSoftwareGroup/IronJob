@@ -26,6 +26,7 @@
                                   style="font-size: 16px;color: dodgerblue;font-weight: bold"/>
                     
                     </h:panelGrid>
+                    <p:panel  rendered="#{userInputController.params.size()>0}">
                     <p:separator/>
                     <table>
                     
@@ -45,8 +46,10 @@
                         </ui:repeat>
                     </table>
                     <p:separator/>
-                    <p:commandButton value="Esegui" actionListener="#{userInputController.process}" ajax="true"/>
-                    
+                    </p:panel>
+                    <p:commandButton value="Esegui" icon="ui-icon-circle-triangle-e" actionListener="#{userInputController.process}" ajax="true" oncomplete="window.close()"/>
+                    <p:commandButton value="Chiudi" icon="ui-icon-circle-close" ajax="true" oncomplete="window.close()"/>
+                   
                 </h:panelGroup>
 
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />

@@ -14,7 +14,7 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="ActivityListForm">
+            <h:form id="ActivityListForm" target="_blank">
                 <p:panel header="#{activity.ListActivityTitle}">
                     <p:dataTable id="datalist" value="#{activityController.items}" var="item"
                                  selectionMode="single" selection="#{activityController.selected}"
@@ -67,7 +67,7 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{activity.Create}" actionListener="#{activityController.prepareCreate}" update=":ActivityCreateForm" oncomplete="PF('ActivityCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{activity.View}" update=":ActivityViewForm" oncomplete="PF('ActivityViewDialog').show()" disabled="#{empty activityController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{activity.Edit}" update=":ActivityEditForm" oncomplete="PF('ActivityEditDialog').show()" disabled="#{empty activityController.selected}"/>
-                            <p:commandButton id="runButton"   icon="ui-icon-circle-triangle-e" value="#{activity.Run}"  action="#{activityController.run()}"  ajax="false" disabled="#{empty activityController.selected}"/>                          
+                            <p:commandButton id="runButton"   icon="ui-icon-circle-triangle-e"  value="#{activity.Run}"  action="#{activityController.run()}"  ajax="false" disabled="#{empty activityController.selected}"/>                          
                             <p:commandButton id="paramsButton"   icon="ui-icon-gear" value="#{activity.Params}" action="#{paramsController.prepareView(activityController.selected.id)}" disabled="#{empty activityController.selected}" ajax="false"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{activity.Delete}" actionListener="#{activityController.destroy}" update=":growl,datalist" disabled="#{empty activityController.selected}"/>
                         </f:facet>

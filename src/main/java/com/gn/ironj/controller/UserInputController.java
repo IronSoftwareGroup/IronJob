@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ironsg.ironj.controller;
+package com.gn.ironj.controller;
 
-import com.ironsg.ironj.engine.JobProcessor;
-import com.ironsg.ironj.entity.Activity;
-import com.ironsg.ironj.entity.Params;
+import com.gn.ironj.engine.JobProcessor;
+import com.gn.ironj.entity.Activity;
+import com.gn.ironj.entity.Params;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -45,11 +45,11 @@ public class UserInputController implements Serializable {
     private Activity activity;
     private List<Params> params;
     @EJB
-    private com.ironsg.ironj.services.ParamsFacade ejbParams;
+    private com.gn.ironj.services.ParamsFacade ejbParams;
      @EJB
-    private com.ironsg.ironj.services.ActivityFacade ejbActivity;
+    private com.gn.ironj.services.ActivityFacade ejbActivity;
      @EJB
-     private com.ironsg.ironj.services.ConfigFacade ejbConfig;
+     private com.gn.ironj.services.ConfigFacade ejbConfig;
 
     public UserInputController() {
     }

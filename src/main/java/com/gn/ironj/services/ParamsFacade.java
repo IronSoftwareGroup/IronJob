@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.ironsg.ironj.services;
+package com.gn.ironj.services;
 
-import com.ironsg.ironj.entity.Params;
+import com.gn.ironj.entity.Params;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

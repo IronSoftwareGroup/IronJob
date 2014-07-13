@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.ironsg.ironj.controller;
+package com.gn.ironj.controller;
 
-import com.ironsg.ironj.entity.Activity;
+import com.gn.ironj.entity.Activity;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

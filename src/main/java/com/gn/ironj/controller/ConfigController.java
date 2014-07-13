@@ -1,9 +1,9 @@
-package com.ironsg.ironj.controller;
+package com.gn.ironj.controller;
 
-import com.ironsg.ironj.entity.Config;
-import com.ironsg.ironj.controller.util.JsfUtil;
-import com.ironsg.ironj.controller.util.JsfUtil.PersistAction;
-import com.ironsg.ironj.services.ConfigFacade;
+import com.gn.ironj.entity.Config;
+import com.gn.ironj.controller.util.JsfUtil;
+import com.gn.ironj.controller.util.JsfUtil.PersistAction;
+import com.gn.ironj.services.ConfigFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class ConfigController implements Serializable {
 
     @EJB
-    private com.ironsg.ironj.services.ConfigFacade ejbFacade;
+    private com.gn.ironj.services.ConfigFacade ejbFacade;
     private List<Config> items = null;
     private Config selected;
 

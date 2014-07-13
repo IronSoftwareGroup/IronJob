@@ -1,10 +1,10 @@
-package com.ironsg.ironj.controller;
+package com.gn.ironj.controller;
 
-import com.ironsg.ironj.controller.util.JsfUtil;
-import com.ironsg.ironj.controller.util.JsfUtil.PersistAction;
-import com.ironsg.ironj.entity.Activity;
-import com.ironsg.ironj.entity.Params;
-import com.ironsg.ironj.services.ActivityFacade;
+import com.gn.ironj.controller.util.JsfUtil;
+import com.gn.ironj.controller.util.JsfUtil.PersistAction;
+import com.gn.ironj.entity.Activity;
+import com.gn.ironj.entity.Params;
+import com.gn.ironj.services.ActivityFacade;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -29,9 +29,9 @@ import org.primefaces.event.CellEditEvent;
 public class ActivityController implements Serializable {
 
     @EJB
-    private com.ironsg.ironj.services.ActivityFacade ejbFacade;
+    private com.gn.ironj.services.ActivityFacade ejbFacade;
     @EJB
-    private com.ironsg.ironj.services.ParamsFacade ejbParams;
+    private com.gn.ironj.services.ParamsFacade ejbParams;
     private List<Activity> items = null;
      private List<Params> params = null;
     private Activity selected;

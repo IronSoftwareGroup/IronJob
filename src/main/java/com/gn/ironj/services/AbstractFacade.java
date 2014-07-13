@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.ironsg.ironj.services;
+package com.gn.ironj.services;
 
 import java.util.List;
 import javax.persistence.EntityManager;

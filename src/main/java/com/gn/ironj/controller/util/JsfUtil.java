@@ -1,4 +1,4 @@
-package com.ironsg.ironj.controller.util;
+package com.gn.ironj.controller.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

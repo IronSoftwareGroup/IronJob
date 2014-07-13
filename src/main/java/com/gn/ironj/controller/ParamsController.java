@@ -1,9 +1,9 @@
-package com.ironsg.ironj.controller;
+package com.gn.ironj.controller;
 
-import com.ironsg.ironj.entity.Params;
-import com.ironsg.ironj.controller.util.JsfUtil;
-import com.ironsg.ironj.controller.util.JsfUtil.PersistAction;
-import com.ironsg.ironj.services.ParamsFacade;
+import com.gn.ironj.entity.Params;
+import com.gn.ironj.controller.util.JsfUtil;
+import com.gn.ironj.controller.util.JsfUtil.PersistAction;
+import com.gn.ironj.services.ParamsFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class ParamsController implements Serializable {
 
     @EJB
-    private com.ironsg.ironj.services.ParamsFacade ejbFacade;
+    private com.gn.ironj.services.ParamsFacade ejbFacade;
     private List<Params> items = null;
     private Params selected;
     private int selectedActivityId;
@@ -46,7 +46,7 @@ public class ParamsController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-        selected.setParamsPK(new com.ironsg.ironj.entity.ParamsPK());
+        selected.setParamsPK(new com.gn.ironj.entity.ParamsPK());
     }
 
     private ParamsFacade getFacade() {
@@ -146,16 +146,16 @@ public class ParamsController implements Serializable {
             return controller.getFacade().find(getKey(value));
         }
 
-        com.ironsg.ironj.entity.ParamsPK getKey(String value) {
-            com.ironsg.ironj.entity.ParamsPK key;
+        com.gn.ironj.entity.ParamsPK getKey(String value) {
+            com.gn.ironj.entity.ParamsPK key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new com.ironsg.ironj.entity.ParamsPK();
+            key = new com.gn.ironj.entity.ParamsPK();
             key.setActivityId(Integer.parseInt(values[0]));
             key.setName(values[1]);
             return key;
         }
 
-        String getStringKey(com.ironsg.ironj.entity.ParamsPK value) {
+        String getStringKey(com.gn.ironj.entity.ParamsPK value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getActivityId());
             sb.append(SEPARATOR);
