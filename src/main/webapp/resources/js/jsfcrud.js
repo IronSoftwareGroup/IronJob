@@ -6,3 +6,8 @@ function handleSubmit(args, dialog) {
         PF(dialog).hide();
     }
 }
+
+function waitAndClose(window){
+       sleep(2000);
+
+}

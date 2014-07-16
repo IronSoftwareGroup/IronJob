@@ -17,47 +17,50 @@
             <h:form id="ActivityListForm" target="_blank">
                 <p:panel header="#{activity.ListActivityTitle}">
                     <p:dataTable id="datalist" value="#{activityController.items}" var="item"
+                                 widgetVar="actTable"
                                  selectionMode="single" selection="#{activityController.selected}"
                                  paginator="true"
+                                 paginatorAlwaysVisible="false"
                                  rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 rows="100"
+                                 rowsPerPageTemplate="100,200,300,400,500"
                                  >
 
+                       
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton runButton paramsButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton runButton paramsButton deleteButton"/>
-
-                        <p:column>
+            
+                        <p:column filterBy="id" filterMatchMode="contains"  sortBy="id">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="name" filterMatchMode="contains"  sortBy="name">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </p:column>
-                        <p:column>
+                        <p:column  filterBy="description" filterMatchMode="contains" sortBy="description">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_description}"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="type" filterMatchMode="contains"  sortBy="type">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_type}"/>
                             </f:facet>
                             <h:outputText value="#{item.type}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="path" filterMatchMode="contains"  sortBy="path">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_path}"/>
                             </f:facet>
                             <h:outputText value="#{item.path}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="log" filterMatchMode="contains"  sortBy="log">
                             <f:facet name="header">
                                 <h:outputText value="#{activity.ListActivityTitle_log}"/>
                             </f:facet>

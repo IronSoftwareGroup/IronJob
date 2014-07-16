@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{activityController.selected != null}">
                         <p:outputLabel value="#{activity.EditActivityLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{activityController.selected.id}" title="#{activity.EditActivityTitle_id}" required="true" requiredMessage="#{activity.EditActivityRequiredMessage_id}"/>
+                        <p:inputText id="id" value="#{activityController.selected.id}" title="#{activity.EditActivityTitle_id}" readonly="true"/>
                         <p:outputLabel value="#{activity.EditActivityLabel_name}" for="name" />
                         <p:inputText id="name" value="#{activityController.selected.name}" title="#{activity.EditActivityTitle_name}" required="true" requiredMessage="#{activity.EditActivityRequiredMessage_name}"/>
                         <p:outputLabel value="#{activity.EditActivityLabel_description}" for="description" />

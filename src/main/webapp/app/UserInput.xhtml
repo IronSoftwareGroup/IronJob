@@ -7,6 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
     <f:metadata>
         <f:viewParam name="id" value="#{userInputController.inputActivity}"/>
+        <f:viewParam name="user" value="#{userInputController.user}"/>
+        <f:viewParam name="password" value="#{userInputController.password}"/>
     </f:metadata>
     <h:head>
         <title><ui:insert name="title">#{userInputController.activity.name}</ui:insert></title>
@@ -15,6 +17,7 @@
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
     <h:body>
+         <p:growl id="growl" life="3000" />
         <f:event type="preRenderView" listener="#{userInputController.loadData}"/> 
         <h:form id="ActivityExecuteForm">
             <p:panel header="Esecuzione Lavoro Remoto" >
@@ -47,9 +50,9 @@
                     </table>
                     <p:separator/>
                     </p:panel>
-                    <p:commandButton value="Esegui" icon="ui-icon-circle-triangle-e" actionListener="#{userInputController.process}" ajax="true" oncomplete="window.close()"/>
-                    <p:commandButton value="Chiudi" icon="ui-icon-circle-close" ajax="true" oncomplete="window.close()"/>
-                   
+                    <p:commandButton value="Esegui" icon="ui-icon-circle-triangle-e" actionListener="#{userInputController.process}" ajax="true" oncomplete="waitAndClose()" update="growl"/>
+                    <p:commandButton value="Chiudi" icon="ui-icon-circle-close" ajax="true" onclick="window.close()" />
+                    <p:growl id="growl" life="10000" />
                 </h:panelGroup>
 
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />

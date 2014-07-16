@@ -33,4 +33,27 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+        <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/index.xhtml</form-login-page>
+            <form-error-page>/faces/index.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Protected Area</web-resource-name>
+            <url-pattern>/faces/admin/*</url-pattern>
+          
+           <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
 </web-app>
