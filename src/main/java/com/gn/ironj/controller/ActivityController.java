@@ -2,27 +2,29 @@ package com.gn.ironj.controller;
 
 import com.gn.ironj.controller.util.JsfUtil;
 import com.gn.ironj.controller.util.JsfUtil.PersistAction;
+import com.gn.ironj.engine.LogManager;
 import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Params;
 import com.gn.ironj.services.ActivityFacade;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.event.CellEditEvent;
+import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean(name = "activityController")
 @SessionScoped
@@ -36,6 +38,7 @@ public class ActivityController implements Serializable {
      private List<Params> params = null;
     private Activity selected;
     private Params selectedParam;
+     private List<File> logFile;
  
 
     public ActivityController() {
@@ -58,6 +61,22 @@ public class ActivityController implements Serializable {
         this.selectedParam = selectedParam;
     }
 
+    public List<File> getLogFile() {
+        return logFile;
+    }
+
+    public void setLogFile(List<File> logFile) {
+        this.logFile = logFile;
+    }
+
+    public String loadLogFile(){
+ 
+        int i = selected.getLog().indexOf("logfile=");
+        String logPath=selected.getLog().substring(i+8, selected.getLog().length());
+        logFile=LogManager.getLogsFromDirectory(logPath);
+        System.out.println(logPath);
+        return "Log";
+    }
  
 
     protected void setEmbeddableKeys() {
@@ -121,6 +140,39 @@ public class ActivityController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+       public void downloadLog(File f) {
+        FileInputStream input = null;
+        try {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+            response.reset();
+            response.setContentType("text");
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"");
+
+            OutputStream output = response.getOutputStream();
+            input = new FileInputStream(f.getAbsolutePath());
+            byte[] buffer = new byte[1024]; // Adjust if you want
+            int bytesRead;
+            while ((bytesRead = input.read(buffer)) != -1) {
+                output.write(buffer, 0, bytesRead);
+            }
+            fc.responseComplete();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if(input!=null){
+                input.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

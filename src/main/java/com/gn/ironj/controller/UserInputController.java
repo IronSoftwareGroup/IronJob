@@ -11,29 +11,15 @@ import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Params;
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,6 +32,9 @@ public class UserInputController implements Serializable {
     private int inputActivity = 0;
     private String user, password;
     private Activity activity;
+    private String status;
+    private String log;
+   
     private List<Params> params;
     @EJB
     private com.gn.ironj.services.ParamsFacade ejbParams;
@@ -57,6 +46,9 @@ public class UserInputController implements Serializable {
     public UserInputController() {
     }
 
+    /*
+     *Getter and setter 
+     */
     public int getInputActivity() {
         return inputActivity;
     }
@@ -90,12 +82,25 @@ public class UserInputController implements Serializable {
         this.activity = activity;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
     public List<Params> getParams() {
-
         ejbParams.findByActivity(inputActivity);
-
         return params;
-
     }
 
     public void setParams(List<Params> params) {
@@ -103,26 +108,30 @@ public class UserInputController implements Serializable {
     }
 
     public void loadData() {
-        System.out.println("user is " + user);
+        Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Loading data for user " + user);
         tryLogin();
         if (inputActivity > 0) {
             activity = ejbActivity.find(inputActivity);
             params = ejbParams.findByActivity(inputActivity);
         }
+        status = "Pronto per essere inviato";     
     }
 
-    public void process() {
-        String kitchen = getKitchen();
+    
 
-        
+    public void process() {
+        log = "";
+        String kitchen = getKitchen();
         try {
-            JobProcessor.process(kitchen, activity.getPath(), activity.getName(), activity.getLog(), params);
+            log = JobProcessor.process(kitchen, activity.getPath(), activity.getName(), activity.getLog(), params);
+            Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Activity {0} completed", activity.getName());
             JsfUtil.addSuccessMessage("Lavoro completato :-)");
+            status = "Completato";
         } catch (Exception ex) {
             Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
+            status = "Terminato in errore";
             JsfUtil.addErrorMessage("Mi dispiace ma si è verificato un errore nell'esecuzione del lavoro :-(");
         }
-       
     }
 
     private String getKitchen() {
@@ -132,20 +141,16 @@ public class UserInputController implements Serializable {
 
     private void tryLogin() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        System.out.println("Login from external call");
-      
-        
-        if (request.getUserPrincipal()==null) {
-            System.out.println("Try to create new session");
+        Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Application was called from externalsystem");
+        if (request.getUserPrincipal() == null) {
             try {
-                System.out.println("Try Login");
-                System.out.println(user + password);
+                Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "User  {0} is not logged in, try to create new session", user);
                 request.login(user, password);
-                System.out.println("Success");
+                Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "User  {0} is now authenticated", user);
             } catch (ServletException ex) {
                 Logger.getLogger(ApplicationController.class.getName()).log(Level.SEVERE, null, ex);
                 try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath()+"/faces/index.xhtml");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath() + "/faces/index.xhtml");
                 } catch (IOException ex1) {
                     Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex1);
                 }

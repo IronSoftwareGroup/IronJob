@@ -8,18 +8,14 @@ package com.gn.ironj.engine;
 import com.gn.ironj.controller.UserInputController;
 import com.gn.ironj.entity.Params;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.management.OperatingSystemImpl;
 
 /**
  *
@@ -27,16 +23,29 @@ import sun.management.OperatingSystemImpl;
  */
 public class JobProcessor {
 
-    public static void process(String kitchen, String activity, String name, String log, List<Params> params) throws Exception {
+    /**
+     * 
+     * @param kitchen=The path of Kitchen.sh or .bat
+     * @param activity=The path of the Kettle Job
+     * @param name=The name of the Job (it's only a description)
+     * @param log=the path of the log directory including the argument (ex. -file=c:\log...)
+     * @param params=The list of parameters required by the job (if any)
+     * @return The return code grabbed from kitchen
+     * @throws Exception 
+     */
+    public static String process(String kitchen, String activity, String name, String log, List<Params> params) throws Exception {
 
-        Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "Kitchen variable is: " + kitchen);
+        Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "Kitchen variable is: {0}", kitchen);
         boolean imWin = Helper.imWin();
-        Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "I'm a Windows Server: " + imWin);
-
+        Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "I''m a Windows Server: {0}", imWin);
+        
+        StringBuilder logBuilder = new StringBuilder(4096);
        
 
             StringBuilder sb = new StringBuilder(256);
+            if (imWin) {
             sb.append("cmd /c ");
+            }
             sb.append(kitchen);
             sb.append(" ");
             if (imWin) {
@@ -75,33 +84,32 @@ public class JobProcessor {
                 sb.append(p.getValue());
             }
 
-            Logger.getLogger(UserInputController.class.getName()).log(Level.INFO,
-                    "Running job from command line: " + sb.toString());
+            Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "Running job from command line: {0}", sb.toString());
 
-            Process p = Runtime.getRuntime().exec(sb.toString());
+        Process p = Runtime.getRuntime().exec(sb.toString());
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
         BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
-        // read the output from the command
-        System.out.println("Here is the standard output of the command:\n");
+        // read the output from the command     
         String s = null;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
+            logBuilder.append(s);
+            logBuilder.append("\n");
         }
 
-        // read any errors from the attempted command
-        System.out.println("Here is the standard error of the command (if any):\n");
+        // read any errors from the attempted command      
         while ((s = stdError.readLine()) != null) {
-            System.out.println(s);
+            System.err.println(s);
+            logBuilder.append(s);
         }
        
             int returnCode=p.waitFor();
             if(returnCode>0){
+                Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, "Error on job execution return code is: {0}", returnCode);
                 throw new Exception("Error executing "+sb.toString());
             }
-            params = null;
-        
-
+           return logBuilder.toString();
     }
 }

@@ -30,7 +30,6 @@
                     
                     </h:panelGrid>
                     <p:panel  rendered="#{userInputController.params.size()>0}">
-                    <p:separator/>
                     <table>
                     
                             
@@ -47,13 +46,16 @@
                                 <td>[nome del parametro: #{p.paramsPK.name}] </td>
                             </tr>
                         </ui:repeat>
-                    </table>
-                    <p:separator/>
+                    </table>            
                     </p:panel>
-                    <p:commandButton value="Esegui" icon="ui-icon-circle-triangle-e" actionListener="#{userInputController.process}" ajax="true" oncomplete="waitAndClose()" update="growl"/>
+                    <p:commandButton value="Esegui" icon="ui-icon-circle-triangle-e" actionListener="#{userInputController.process}" ajax="true" oncomplete="waitAndClose()"/>
                     <p:commandButton value="Chiudi" icon="ui-icon-circle-close" ajax="true" onclick="window.close()" />
+                    <p:outputLabel value="Stato del lavoro: "/>
+                    <h:outputText id="status" value="#{userInputController.status}"/>
                     <p:growl id="growl" life="10000" />
+                   
                 </h:panelGroup>
+                
 
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
             </p:panel>
@@ -63,9 +65,7 @@
                       showHeader="false" showEffect="puff" hideEffect="explode">
                
                 <p:panelGrid columns="1"  style="border: hidden;width: 400px">
-                  
-
-                    <h:outputText value="Il comando è stato inviato al server per l'esecuzione, 
+                  <h:outputText value="Il comando è stato inviato al server per l'esecuzione, 
                                   questa finestra si chiuderà al termine del lavoro."
                                   style="color: cornflowerblue;font-size: 14px;font-weight: bold"/>
 

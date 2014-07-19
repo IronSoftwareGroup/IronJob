@@ -84,10 +84,7 @@ public class ApplicationController {
             System.out.println("Success");
         } catch (ServletException ex) {
             Logger.getLogger(ApplicationController.class.getName()).log(Level.SEVERE, null, ex);
-
         }
-        System.out.println(request.getRequestURI());
-
     }
 
 }
