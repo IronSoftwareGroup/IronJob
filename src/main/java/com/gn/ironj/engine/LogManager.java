@@ -5,10 +5,19 @@
  */
 package com.gn.ironj.engine;
 
+import com.gn.ironj.controller.UserInputController;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +29,7 @@ public class LogManager {
     }
 
     public static List<File> getLogsFromDirectory(String logDir) {
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Load the files list from directory: {0}", logDir); 
         List<File> logFile = new ArrayList<File>();
         File f = new File(logDir);
         if (f.isDirectory()) {
@@ -30,6 +40,8 @@ public class LogManager {
             });
             for (int i = 0; i < allFiles.length; i++) {
                 logFile.add(new File(logDir + File.separator + allFiles[i]));
+                Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Found file: {0}", allFiles[i]); 
+        
             }
         }
         return logFile;

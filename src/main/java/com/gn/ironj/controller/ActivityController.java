@@ -68,13 +68,30 @@ public class ActivityController implements Serializable {
     public void setLogFile(List<File> logFile) {
         this.logFile = logFile;
     }
+    public void copyActivity(){
+        String name=selected.getName();
+        String dsc = selected.getDescription();
+        String log = selected.getLog();
+        String path = selected.getPath();
+        String type = selected.getType();
+        selected = new Activity();
+        initializeEmbeddableKey();
+        selected.setName(name);
+        selected.setDescription(dsc);
+        selected.setPath(path);
+        selected.setLog(log);
+        selected.setType(type);
+        
+    }
 
     public String loadLogFile(){
- 
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Parsing log dir for path ectraction : {0}",selected.getLog()); 
         int i = selected.getLog().indexOf("logfile=");
         String logPath=selected.getLog().substring(i+8, selected.getLog().length());
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Log dir is: {0}",logPath); 
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Call LogMamanger for files load"); 
         logFile=LogManager.getLogsFromDirectory(logPath);
-        System.out.println(logPath);
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Number of files retrieved: {0}",logFile.size()); 
         return "Log";
     }
  
@@ -143,6 +160,7 @@ public class ActivityController implements Serializable {
     }
     
        public void downloadLog(File f) {
+       
         FileInputStream input = null;
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
