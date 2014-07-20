@@ -3,6 +3,7 @@
   <persistence-unit name="com.ironsg_IronJ_war_1.0PU" transaction-type="JTA">
     <jta-data-source>ironj</jta-data-source>
     <class>com.gn.ironj.entity.Config</class>
+    <class>com.gn.ironj.entity.Connector</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
