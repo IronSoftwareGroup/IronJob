@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
@@ -30,12 +29,9 @@
                             #{file.absolutePath}
                         </p:column>
                         <p:column headerText="Date">
-                            <h:outputText value="#{file.lastModified()}" >
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss:SS" />
-                            </h:outputText>
+                            #{file.lastModified()}
                         </p:column>
                         <p:column headerText="Size (kb)">
-                            
                             #{file.length()/1024} 
                         </p:column>   
                     </p:dataTable>

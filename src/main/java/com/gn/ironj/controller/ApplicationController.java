@@ -78,7 +78,7 @@ public class ApplicationController {
     public void doLogin() {
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        System.out.println("Login");
+        Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Login attempt for user: {0}", username);
         try {
             request.login(username, password);
             System.out.println("Success");

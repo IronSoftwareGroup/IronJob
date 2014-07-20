@@ -9,6 +9,7 @@ import com.gn.ironj.services.ActivityFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -35,15 +36,14 @@ public class ActivityController implements Serializable {
     @EJB
     private com.gn.ironj.services.ParamsFacade ejbParams;
     private List<Activity> items = null;
-     private List<Params> params = null;
+    private List<Params> params = null;
     private Activity selected;
     private Params selectedParam;
-     private List<File> logFile;
- 
+    private List<File> logFile;
+    private List<String> logLine;
 
     public ActivityController() {
     }
-
 
     public Activity getSelected() {
         return selected;
@@ -68,8 +68,17 @@ public class ActivityController implements Serializable {
     public void setLogFile(List<File> logFile) {
         this.logFile = logFile;
     }
-    public void copyActivity(){
-        String name=selected.getName();
+
+    public List<String> getLogLine() {
+        return logLine;
+    }
+
+    public void setLogLine(List<String> logLine) {
+        this.logLine = logLine;
+    }
+
+    public void copyActivity() {
+        String name = selected.getName();
         String dsc = selected.getDescription();
         String log = selected.getLog();
         String path = selected.getPath();
@@ -81,20 +90,21 @@ public class ActivityController implements Serializable {
         selected.setPath(path);
         selected.setLog(log);
         selected.setType(type);
-        
+
     }
 
-    public String loadLogFile(){
-        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Parsing log dir for path ectraction : {0}",selected.getLog()); 
+    public String loadLogFile() {
+        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Parsing log dir for path ectraction : {0}", selected.getLog());
         int i = selected.getLog().indexOf("logfile=");
-        String logPath=selected.getLog().substring(i+8, selected.getLog().length());
-        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Log dir is: {0}",logPath); 
-        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Call LogMamanger for files load"); 
-        logFile=LogManager.getLogsFromDirectory(logPath);
-        Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Number of files retrieved: {0}",logFile.size()); 
-        return "Log";
+        if(i>0){
+            String logPath = selected.getLog().substring(i + 8, selected.getLog().length());
+            Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Log dir is: {0}", logPath);
+            Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Call LogMamanger for files load");
+            logFile = LogManager.getLogsFromDirectory(logPath);
+            Logger.getLogger(LogManager.class.getName()).log(Level.FINE, "Number of files retrieved: {0}", logFile.size());
+        }
+         return "Log";
     }
- 
 
     protected void setEmbeddableKeys() {
     }
@@ -112,13 +122,12 @@ public class ActivityController implements Serializable {
         return selected;
     }
 
+    public List<Params> getParams() {
+        if (params == null) {
 
-    public List<Params> getParams(){
-        if(params==null){
-       
-        params = ejbParams.findByActivity(selected.getId());
+            params = ejbParams.findByActivity(selected.getId());
         }
-        
+
         return params;
     }
 
@@ -126,13 +135,12 @@ public class ActivityController implements Serializable {
         System.out.println("imposto parametri  ");
         this.params = params;
     }
-    
-    public String run(){
-        
-        return "/app/UserInput?id="+selected.getId()+"&faces-redirect=true";
+
+    public String run() {
+
+        return "/app/UserInput?id=" + selected.getId() + "&faces-redirect=true";
     }
-    
-    
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Activity").getString("ActivityCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -158,9 +166,16 @@ public class ActivityController implements Serializable {
         }
         return items;
     }
+
+    //LEggere il log e metterlo in nell array di stringhe per visualizzarlo
+    public String viewLog(String log) {
+       return null;
     
-       public void downloadLog(File f) {
-       
+
+    }
+
+    public void downloadLog(File f) {
+
         FileInputStream input = null;
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -183,8 +198,8 @@ public class ActivityController implements Serializable {
             Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if(input!=null){
-                input.close();
+                if (input != null) {
+                    input.close();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
