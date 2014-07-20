@@ -19,6 +19,7 @@
                     <p:dataTable id="datalist" value="#{configController.items}" var="item"
                                  selectionMode="single" selection="#{configController.selected}"
                                  paginator="true"
+                                 paginatorAlwaysVisible="false"
                                  rowKey="#{item.propertyKey}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"

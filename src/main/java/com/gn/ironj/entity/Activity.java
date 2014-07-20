@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Activity.findByPath", query = "SELECT a FROM Activity a WHERE a.path = :path"),
     @NamedQuery(name = "Activity.findByLog", query = "SELECT a FROM Activity a WHERE a.log = :log")})
 public class Activity implements Serializable {
+   
     private static final long serialVersionUID = 1L;
     @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +60,8 @@ public class Activity implements Serializable {
     @Size(max = 256)
     @Column(name = "log")
     private String log;
+    @Column(name = "connector_id")
+    private Integer connectorId;
 
     public Activity() {
     }
@@ -143,6 +146,14 @@ public class Activity implements Serializable {
     @Override
     public String toString() {
         return "com.ironsg.ironj.entity.Activity[ id=" + id + " ]";
+    }
+
+    public Integer getConnectorId() {
+        return connectorId;
+    }
+
+    public void setConnectorId(Integer connectorId) {
+        this.connectorId = connectorId;
     }
 
 }

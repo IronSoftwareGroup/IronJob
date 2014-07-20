@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConnectorViewDlg" widgetVar="ConnectorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{controller.ViewConnectorTitle}">
+            <h:form id="ConnectorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{connectorController.selected != null}">
+                        <h:outputText value="#{controller.ViewConnectorLabel_id}"/>
+                        <h:outputText value="#{connectorController.selected.id}" title="#{controller.ViewConnectorTitle_id}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_name}"/>
+                        <h:outputText value="#{connectorController.selected.name}" title="#{controller.ViewConnectorTitle_name}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_description}"/>
+                        <h:outputText value="#{connectorController.selected.description}" title="#{controller.ViewConnectorTitle_description}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_username}"/>
+                        <h:outputText value="#{connectorController.selected.username}" title="#{controller.ViewConnectorTitle_username}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_password}"/>
+                        <h:outputText value="#{connectorController.selected.password}" title="#{controller.ViewConnectorTitle_password}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_driver}"/>
+                        <h:outputText value="#{connectorController.selected.driver}" title="#{controller.ViewConnectorTitle_driver}"/>
+                        <h:outputText value="#{controller.ViewConnectorLabel_url}"/>
+                        <h:outputText value="#{connectorController.selected.url}" title="#{controller.ViewConnectorTitle_url}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{controller.Close}" onclick="ConnectorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

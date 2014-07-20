@@ -4,8 +4,10 @@ import com.gn.ironj.controller.util.JsfUtil;
 import com.gn.ironj.controller.util.JsfUtil.PersistAction;
 import com.gn.ironj.engine.LogManager;
 import com.gn.ironj.entity.Activity;
+import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
 import com.gn.ironj.services.ActivityFacade;
+import com.gn.ironj.services.ConnectorFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,6 +43,8 @@ public class ActivityController implements Serializable {
     private Params selectedParam;
     private List<File> logFile;
     private List<String> logLine;
+    @EJB
+    private ConnectorFacade ejbConnector;
 
     public ActivityController() {
     }
@@ -61,6 +65,8 @@ public class ActivityController implements Serializable {
         this.selectedParam = selectedParam;
     }
 
+       
+
     public List<File> getLogFile() {
         return logFile;
     }
@@ -75,6 +81,10 @@ public class ActivityController implements Serializable {
 
     public void setLogLine(List<String> logLine) {
         this.logLine = logLine;
+    }
+    
+    public List<Connector> getAvailableConnector(){
+       return ejbConnector.findAll();
     }
 
     public void copyActivity() {
@@ -119,6 +129,8 @@ public class ActivityController implements Serializable {
     public Activity prepareCreate() {
         selected = new Activity();
         initializeEmbeddableKey();
+        
+        
         return selected;
     }
 
@@ -206,6 +218,11 @@ public class ActivityController implements Serializable {
             }
         }
 
+    }
+    
+    public void deleteLog(File f){
+        f.delete();
+        loadLogFile();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

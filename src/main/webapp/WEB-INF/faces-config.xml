@@ -16,5 +16,9 @@
             <base-name>/Params</base-name>
             <var>params</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/Controller</base-name>
+            <var>controller</var>
+        </resource-bundle>
     </application>
 </faces-config>

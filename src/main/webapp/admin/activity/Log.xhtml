@@ -26,6 +26,9 @@
                         <p:column style="width: 10px">
                             <p:commandButton icon="ui-icon-search" actionListener="#{activityController.downloadLog(file)}" ajax="false"/>
                         </p:column>
+                        <p:column style="width: 10px">
+                            <p:commandButton icon="ui-icon-trash" actionListener="#{activityController.deleteLog(file)}" update="datalist"/>
+                        </p:column>
                         <p:column headerText="File">
                             #{file.absolutePath}
                         </p:column>

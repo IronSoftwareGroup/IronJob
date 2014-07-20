@@ -47,6 +47,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Connector.findByDriver", query = "SELECT c FROM Connector c WHERE c.driver = :driver"),
     @NamedQuery(name = "Connector.findByUrl", query = "SELECT c FROM Connector c WHERE c.url = :url")})
 public class Connector implements Serializable {
+    @Size(max = 10)
+    @Column(name = "type")
+    private String type;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -158,6 +161,14 @@ public class Connector implements Serializable {
     @Override
     public String toString() {
         return "com.gn.ironj.entity.Connector[ id=" + id + " ]";
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

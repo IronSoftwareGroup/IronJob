@@ -25,6 +25,7 @@
                             <f:selectItem itemLabel="Select One" itemValue="" />  
                             <f:selectItem itemLabel="Kettle Transformation"  itemValue="KTL_TR" /> 
                             <f:selectItem itemLabel="Kettle Job"  itemValue="KTL_JOB" /> 
+                            
                         </p:selectOneMenu>
                         
                         <p:outputLabel value="#{activity.CreateActivityLabel_path}" for="path" />
@@ -32,6 +33,7 @@
                         
                         <p:outputLabel value="#{activity.CreateActivityLabel_log}" for="log" />
                         <p:inputText id="log" value="#{activityController.selected.log}" title="#{activity.CreateActivityTitle_log}" style="width: 480px"/>
+     
                     </p:panelGrid>
                     <p:commandButton actionListener="#{activityController.create}" value="#{activity.Save}" update="display,:ActivityListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActivityCreateDialog');"/>
                     <p:commandButton value="#{activity.Cancel}" onclick="ActivityCreateDialog.hide()"/>
