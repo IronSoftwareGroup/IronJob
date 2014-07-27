@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 bruno
+ * Copyright (C) 2014 Bruno Condemi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,9 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gn.ironj.engine;
+package com.gn.ironj.engine.processors;
 
 import com.gn.ironj.entity.Activity;
+import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
 import java.util.List;
 
@@ -25,7 +26,8 @@ import java.util.List;
  *
  * @author Bruno Condemi
  */
+
 public interface IProcessor {
-    public void process(Activity activity, List<Params> params) throws ProcessorExecption;
+    public void process(Activity activity,Connector connector, List<Params> params);
 
 }

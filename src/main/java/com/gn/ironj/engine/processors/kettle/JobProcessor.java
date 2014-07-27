@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gn.ironj.engine;
+package com.gn.ironj.engine.processors.kettle;
 
 import com.gn.ironj.controller.UserInputController;
+import com.gn.ironj.engine.Helper;
 import com.gn.ironj.entity.Params;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

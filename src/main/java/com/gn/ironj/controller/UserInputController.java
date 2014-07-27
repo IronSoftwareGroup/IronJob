@@ -17,9 +17,11 @@
 package com.gn.ironj.controller;
 
 import com.gn.ironj.controller.util.JsfUtil;
-import com.gn.ironj.engine.JobProcessor;
-import com.gn.ironj.engine.ProcessorExecption;
+import com.gn.ironj.engine.processors.jdbc.JdbcProcessor;
+import com.gn.ironj.engine.processors.kettle.JobProcessor;
+import com.gn.ironj.engine.processors.ProcessorExecption;
 import com.gn.ironj.entity.Activity;
+import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
 import java.io.IOException;
 import java.io.Serializable;
@@ -55,7 +57,9 @@ public class UserInputController implements Serializable {
     @EJB
     private com.gn.ironj.services.ConfigFacade ejbConfig;
     @EJB
-    private com.gn.ironj.engine.JdbcProcessor ejbJdbcProcessor;
+    private com.gn.ironj.services.ConnectorFacade ejbConnector;
+   
+    private com.gn.ironj.engine.processors.jdbc.JdbcProcessor jdbcProcessor;
 
     public UserInputController() {
     }
@@ -136,12 +140,11 @@ public class UserInputController implements Serializable {
     public void process() {
         log = "";
         if(activity.getType().equalsIgnoreCase("JDBC")){
-           
-            try {
-                ejbJdbcProcessor.process(activity, params);
-            } catch (ProcessorExecption ex) {
-                Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "JDBC Invoked from action {0} ", activity.getName());
+                jdbcProcessor = new JdbcProcessor();
+                Connector connector = ejbConnector.findById(activity.getConnectorId());
+                jdbcProcessor.process(activity,connector, params);
+                Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "JDBC action success ");
         }else{
         String kitchen = getKitchen();
         try {

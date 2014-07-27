@@ -44,7 +44,7 @@ public class ParamsControllerConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        System.out.println("concerti in Stringa");
+        
         if (object == null) {
             return null;
         }

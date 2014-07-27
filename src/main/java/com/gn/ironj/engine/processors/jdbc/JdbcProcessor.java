@@ -14,12 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gn.ironj.engine;
+package com.gn.ironj.engine.processors.jdbc;
 
+import com.gn.ironj.engine.processors.IProcessor;
+import com.gn.ironj.engine.processors.IProcessor;
 import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
-import com.gn.ironj.services.ConnectorFacade;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,28 +36,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
-@Stateless
-public class JdbcProcessor implements IProcessor {
 
-    @EJB
-    ConnectorFacade ejbConnector;
+public class JdbcProcessor implements IProcessor{
+
 
     public JdbcProcessor() {
     }
-
-    public void process(Activity activity, List<Params> params) throws ProcessorExecption{
+    @Override
+    public void process(Activity activity,Connector connector, List<Params> params) {
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "JdbcProcessor called for activity {0}", activity.getName());
         String sql = readSqlFile(activity.getPath());
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Sql file: {0}", activity.getPath());
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Sql string: {0}", sql);
-        executeSql(activity.getConnectorId(), sql, params);
+        executeSql(connector, sql, params);
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Sql executetd");
     }
 
-    private String readSqlFile(String path) throws ProcessorExecption{
+    private String readSqlFile(String path) {
         BufferedReader br = null;
         StringBuilder sql = new StringBuilder(256);
         String line;
@@ -70,7 +67,7 @@ public class JdbcProcessor implements IProcessor {
         } catch (IOException e) {
             Logger.getLogger(JdbcProcessor.class.getName()).log(Level.SEVERE, "Error on reading file: {0}", path);
           
-            throw new ProcessorExecption();
+            
         } finally {
             try {
                 if (br != null) {
@@ -78,21 +75,21 @@ public class JdbcProcessor implements IProcessor {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(JdbcProcessor.class.getName()).log(Level.SEVERE, "Error on closing file: {0}", path);
-                throw new ProcessorExecption();
+               
                 
             }
         }
         return sql.toString();
     }
 
-    private void executeSql(int cntId, String sql, List<Params> params) {
+    private void executeSql(Connector connector, String sql, List<Params> params) {
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Rady for sql execution");
         
         Connection connect = null;
         PreparedStatement preparedStatement = null;
 
-        Connector connector = ejbConnector.findById(cntId);
-        Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Using connector id: {0}", cntId);
+        
+        Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Using connector id: {0}", connector.getId());
         try {
             
             Class.forName(connector.getDriver());

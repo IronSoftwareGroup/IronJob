@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 bruno
+ * Copyright (C) 2014 Bruno Condemi
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,32 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.gn.ironj.engine;
-
-import com.gn.ironj.entity.Connector;
-import com.gn.ironj.services.ConnectorFacade;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+package com.gn.ironj.engine.processors;
 
 /**
  *
  * @author Bruno Condemi
  */
-@Stateless
-public class AbstractProcessor {
+public class ProcessorExecption extends Exception {
 
-   @EJB
-   ConnectorFacade ejbConnector;
-
-    public AbstractProcessor() {
+    public ProcessorExecption() {
+        super();
     }
-   
-   
-    
-    public Connector retriveConnectorProperties(int connectorId){
-       Connector connector = ejbConnector.findById(connectorId);
-    return  connector;
+
+    @Override
+    public String getMessage() {
+        return "errore processo";
     }
 
 }
