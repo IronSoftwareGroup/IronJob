@@ -18,6 +18,7 @@ package com.gn.ironj.engine.processors.jdbc;
 
 import com.gn.ironj.engine.processors.IProcessor;
 import com.gn.ironj.engine.processors.IProcessor;
+import com.gn.ironj.engine.processors.ProcessorException;
 import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
@@ -44,7 +45,7 @@ public class JdbcProcessor implements IProcessor{
     public JdbcProcessor() {
     }
     @Override
-    public void process(Activity activity,Connector connector, List<Params> params) {
+    public void process(Activity activity,Connector connector, List<Params> params) throws ProcessorException{
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "JdbcProcessor called for activity {0}", activity.getName());
         String sql = readSqlFile(activity.getPath());
         Logger.getLogger(JdbcProcessor.class.getName()).log(Level.FINE, "Sql file: {0}", activity.getPath());

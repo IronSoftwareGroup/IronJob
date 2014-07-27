@@ -20,9 +20,9 @@ package com.gn.ironj.engine.processors;
  *
  * @author Bruno Condemi
  */
-public class ProcessorExecption extends Exception {
+public class ProcessorException extends Exception {
 
-    public ProcessorExecption() {
+    public ProcessorException() {
         super();
     }
 

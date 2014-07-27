@@ -28,6 +28,6 @@ import java.util.List;
  */
 
 public interface IProcessor {
-    public void process(Activity activity,Connector connector, List<Params> params);
+    public void process(Activity activity,Connector connector, List<Params> params) throws ProcessorException;
 
 }

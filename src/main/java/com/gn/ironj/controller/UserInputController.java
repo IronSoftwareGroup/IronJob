@@ -19,7 +19,7 @@ package com.gn.ironj.controller;
 import com.gn.ironj.controller.util.JsfUtil;
 import com.gn.ironj.engine.processors.jdbc.JdbcProcessor;
 import com.gn.ironj.engine.processors.kettle.JobProcessor;
-import com.gn.ironj.engine.processors.ProcessorExecption;
+import com.gn.ironj.engine.processors.ProcessorException;
 import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Connector;
 import com.gn.ironj.entity.Params;
@@ -139,16 +139,18 @@ public class UserInputController implements Serializable {
 
     public void process() {
         log = "";
+        Connector connector = ejbConnector.findById(activity.getConnectorId());
         if(activity.getType().equalsIgnoreCase("JDBC")){
            Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "JDBC Invoked from action {0} ", activity.getName());
                 jdbcProcessor = new JdbcProcessor();
-                Connector connector = ejbConnector.findById(activity.getConnectorId());
+                
                 jdbcProcessor.process(activity,connector, params);
                 Logger.getLogger(UserInputController.class.getName()).log(Level.INFO, "JDBC action success ");
         }else{
-        String kitchen = getKitchen();
+        
         try {
-            log = JobProcessor.process(kitchen, activity.getPath(), activity.getName(), activity.getLog(), params);
+           JobProcessor jobProcessor = new JobProcessor();
+            jobProcessor.process(activity,connector, params);
             Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Activity {0} completed", activity.getName());
             JsfUtil.addSuccessMessage("Lavoro completato :-)");
             status = "Completato";
