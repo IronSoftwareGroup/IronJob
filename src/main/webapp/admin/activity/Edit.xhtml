@@ -19,8 +19,12 @@
                         <p:outputLabel value="#{activity.EditActivityLabel_description}" for="description" />
                         <p:inputText id="description" value="#{activityController.selected.description}" title="#{activity.EditActivityTitle_description}" style="width: 480px"/>
                         <p:outputLabel value="#{activity.EditActivityLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{activityController.selected.type}" title="#{activity.EditActivityTitle_type}" />
-                        <p:outputLabel value="#{activity.EditActivityLabel_path}" for="path" />
+                       <p:selectOneMenu  id="type" value="#{activityController.selected.type}">  
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItem itemLabel="Kettle Transformation"  itemValue="KTL_TR" /> 
+                            <f:selectItem itemLabel="Kettle Job"  itemValue="KTL_JOB" /> 
+                            
+                        </p:selectOneMenu> <p:outputLabel value="#{activity.EditActivityLabel_path}" for="path" />
                         <p:inputText id="path" value="#{activityController.selected.path}" title="#{activity.EditActivityTitle_path}" style="width: 480px"/>
                         <p:outputLabel value="#{activity.EditActivityLabel_log}" for="log" />
                         <p:inputText id="log" value="#{activityController.selected.log}" title="#{activity.EditActivityTitle_log}" style="width: 480px"/>

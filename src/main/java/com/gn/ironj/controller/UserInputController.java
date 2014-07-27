@@ -1,12 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Bruno Condemi
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.gn.ironj.controller;
 
 import com.gn.ironj.controller.util.JsfUtil;
 import com.gn.ironj.engine.JobProcessor;
+import com.gn.ironj.engine.ProcessorExecption;
 import com.gn.ironj.entity.Activity;
 import com.gn.ironj.entity.Params;
 import java.io.IOException;
@@ -42,6 +54,8 @@ public class UserInputController implements Serializable {
     private com.gn.ironj.services.ActivityFacade ejbActivity;
     @EJB
     private com.gn.ironj.services.ConfigFacade ejbConfig;
+    @EJB
+    private com.gn.ironj.engine.JdbcProcessor ejbJdbcProcessor;
 
     public UserInputController() {
     }
@@ -108,7 +122,7 @@ public class UserInputController implements Serializable {
     }
 
     public void loadData() {
-        Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Loading data for user " + user);
+        Logger.getLogger(ApplicationController.class.getName()).log(Level.INFO, "Loading data for user {0}", user);
         tryLogin();
         if (inputActivity > 0) {
             activity = ejbActivity.find(inputActivity);
@@ -121,6 +135,14 @@ public class UserInputController implements Serializable {
 
     public void process() {
         log = "";
+        if(activity.getType().equalsIgnoreCase("JDBC")){
+           
+            try {
+                ejbJdbcProcessor.process(activity, params);
+            } catch (ProcessorExecption ex) {
+                Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
         String kitchen = getKitchen();
         try {
             log = JobProcessor.process(kitchen, activity.getPath(), activity.getName(), activity.getLog(), params);
@@ -131,6 +153,7 @@ public class UserInputController implements Serializable {
             Logger.getLogger(UserInputController.class.getName()).log(Level.SEVERE, null, ex);
             status = "Terminato in errore";
             JsfUtil.addErrorMessage("Mi dispiace ma si è verificato un errore nell'esecuzione del lavoro :-(");
+        }
         }
     }
 

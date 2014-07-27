@@ -22,7 +22,8 @@
                         <p:selectOneMenu  id="type" value="#{paramsController.selected.type}">
                             <f:selectItem itemLabel="Select One" itemValue="" />  
                             <f:selectItem itemLabel="String"  itemValue="STRING" /> 
-                            <f:selectItem itemLabel="Date"  itemValue="DATE" />            
+                            <f:selectItem itemLabel="Date"  itemValue="DATE" /> 
+                             <f:selectItem itemLabel="Number"  itemValue="NUMBER" /> 
                         </p:selectOneMenu><p:outputLabel value="#{params.EditParamsLabel_value}" for="value" />
                         <p:inputText id="value" value="#{paramsController.selected.value}" title="#{params.EditParamsTitle_value}" />
                     </p:panelGrid>

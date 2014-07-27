@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
 @ManagedBean(name = "activityController")
@@ -45,6 +46,7 @@ public class ActivityController implements Serializable {
     private List<String> logLine;
     @EJB
     private ConnectorFacade ejbConnector;
+    private List<Connector> connecters;
 
     public ActivityController() {
     }
@@ -65,6 +67,15 @@ public class ActivityController implements Serializable {
         this.selectedParam = selectedParam;
     }
 
+    public List<Connector> getConnecters() {
+        return connecters;
+    }
+
+    public void setConnecters(List<Connector> connecters) {
+        this.connecters = connecters;
+    }
+
+        
        
 
     public List<File> getLogFile() {
@@ -128,6 +139,7 @@ public class ActivityController implements Serializable {
 
     public Activity prepareCreate() {
         selected = new Activity();
+        connecters=ejbConnector.findAll();
         initializeEmbeddableKey();
         
         

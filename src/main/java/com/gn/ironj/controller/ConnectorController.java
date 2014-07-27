@@ -6,6 +6,7 @@ import com.gn.ironj.controller.util.JsfUtil.PersistAction;
 import com.gn.ironj.services.ConnectorFacade;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -79,6 +80,14 @@ public class ConnectorController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public void updatel(){
+        for (Iterator<Connector> it = items.iterator(); it.hasNext();) {
+            Connector connector = it.next();
+            System.out.println(connector.getPassword());
+            
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

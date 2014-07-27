@@ -62,7 +62,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{controller.ListConnectorTitle_password}"/>
                             </f:facet>
-                            <p:password value="#{item.password}"/>
+                            <h:inputText value="#{item.password}" style="width: 90%;border: none;background: none"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -81,6 +81,8 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{controller.View}" update=":ConnectorViewForm" oncomplete="PF('ConnectorViewDialog').show()" disabled="#{empty connectorController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{controller.Edit}" update=":ConnectorEditForm" oncomplete="PF('ConnectorEditDialog').show()" disabled="#{empty connectorController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{controller.Delete}" actionListener="#{connectorController.destroy}" update=":growl,datalist" disabled="#{empty connectorController.selected}"/>
+                            <p:commandButton id="up" icon="ui-icon-trash"  value="ff" actionListener="#{connectorController.updatel}" update=":growl,datalist" />
+                       
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

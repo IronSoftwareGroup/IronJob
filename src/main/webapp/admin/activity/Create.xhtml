@@ -25,6 +25,16 @@
                             <f:selectItem itemLabel="Select One" itemValue="" />  
                             <f:selectItem itemLabel="Kettle Transformation"  itemValue="KTL_TR" /> 
                             <f:selectItem itemLabel="Kettle Job"  itemValue="KTL_JOB" /> 
+                             <f:selectItem itemLabel="JDBC"  itemValue="JDBC" /> 
+                            <p:ajax event="blur" update="cnt" />
+                            
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{activity.CreateActivityLabel_connector}" for="cnt" />
+                        <p:selectOneMenu  id="cnt" value="#{activityController.selected.connectorId}">  
+                            <f:selectItem itemLabel="Select One" itemValue=""   noSelectionOption="true"/>  
+                          
+                            <f:selectItems  value="#{activityController.connecters}" var="cnt" itemLabel="#{cnt.name}" itemValue="#{cnt.id}" /> 
                             
                         </p:selectOneMenu>
                         

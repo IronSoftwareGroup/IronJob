@@ -15,36 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.gn.ironj.services;
+package com.gn.ironj.engine;
 
 import com.gn.ironj.entity.Connector;
+import com.gn.ironj.services.ConnectorFacade;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
  * @author Bruno Condemi
  */
 @Stateless
-public class ConnectorFacade extends AbstractFacade<Connector> {
-    @PersistenceContext(unitName = "com.ironsg_IronJ_war_1.0PU")
-    private EntityManager em;
+public class AbstractProcessor {
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+   @EJB
+   ConnectorFacade ejbConnector;
 
-    public ConnectorFacade() {
-        super(Connector.class);
+    public AbstractProcessor() {
     }
-    public Connector findById(int id){
-        Query q = em.createNamedQuery("Connector.findById");
-        q.setParameter("id", id);
-        return (Connector)q.getSingleResult();
-    }
+   
+   
     
+    public Connector retriveConnectorProperties(int connectorId){
+       Connector connector = ejbConnector.findById(connectorId);
+    return  connector;
+    }
 
 }
