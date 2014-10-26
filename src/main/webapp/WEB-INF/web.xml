@@ -19,7 +19,7 @@
     </servlet>
     <servlet>
         <servlet-name>User Input</servlet-name>
-        <servlet-class>com.gn.ironj.controller.UserInputController</servlet-class>
+        <servlet-class>com.ironsg.ironj.controller.UserInputController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
@@ -33,7 +33,7 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-        <login-config>
+    <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>file</realm-name>
         <form-login-config>
@@ -45,8 +45,7 @@
         <web-resource-collection>
             <web-resource-name>Protected Area</web-resource-name>
             <url-pattern>/faces/admin/*</url-pattern>
-          
-           <http-method>PUT</http-method>
+            <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
