@@ -8,7 +8,7 @@ package com.ironsg.ironj.engine;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 public class Helper {
     

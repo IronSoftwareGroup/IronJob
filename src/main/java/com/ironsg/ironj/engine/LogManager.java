@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 public class LogManager {
 

@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @Stateless
 public class ParamsFacade extends AbstractFacade<Params> {

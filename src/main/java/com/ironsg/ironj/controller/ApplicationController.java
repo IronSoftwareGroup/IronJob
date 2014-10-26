@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @ManagedBean(name = "applicationController")
 @SessionScoped

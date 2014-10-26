@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 
 public interface IProcessor {

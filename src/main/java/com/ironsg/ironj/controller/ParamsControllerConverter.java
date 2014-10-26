@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ironsg.ironj.controller;
 
 import java.text.DateFormat;
@@ -18,7 +13,7 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @FacesConverter("com.ironsg.ironj.controller.ParamsControllerConverter")
 public class ParamsControllerConverter implements Converter {

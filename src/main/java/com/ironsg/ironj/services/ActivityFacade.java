@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @Stateless
 public class ActivityFacade extends AbstractFacade<Activity> {

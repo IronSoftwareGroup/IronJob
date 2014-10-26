@@ -18,7 +18,7 @@ package com.ironsg.ironj.engine.processors;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 public class ProcessorException extends Exception {
 

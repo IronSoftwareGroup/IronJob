@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @Embeddable
 public class ParamsPK implements Serializable {

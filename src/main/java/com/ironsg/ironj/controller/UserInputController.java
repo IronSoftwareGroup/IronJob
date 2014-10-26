@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @ManagedBean(name = "userInputController")
 @SessionScoped

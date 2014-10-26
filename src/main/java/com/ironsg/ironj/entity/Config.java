@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Bruno Condemi
+ * @author Iron Software Group
  */
 @Entity
 @Table(name = "config")
