@@ -25,7 +25,7 @@ public class ParamsPK implements Serializable {
     private int activityId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 60)
     @Column(name = "name")
     private String name;
 

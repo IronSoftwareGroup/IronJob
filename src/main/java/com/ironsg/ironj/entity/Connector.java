@@ -56,16 +56,16 @@ public class Connector implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 60)
     @Column(name = "name")
     private String name;
     @Size(max = 256)
     @Column(name = "description")
     private String description;
-    @Size(max = 45)
+    @Size(max = 60)
     @Column(name = "username")
     private String username;
-    @Size(max = 45)
+    @Size(max = 60)
     @Column(name = "password")
     private String password;
     @Size(max = 256)
